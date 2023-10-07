@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
       .pipe(
         switchMap((data: any) => {
           if (data.tableColumnNameSetting.length > 0) {
-            this.cols = data.tableColumnNameSetting[0];
+            this.cols = data.tableColumnNameSetting;
             if (!(this.pickerFrom && this.pickerTo)) {
               this.pickerTo = '';
               this.pickerFrom = '';
@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
         }
         else {
           if (response.activitiesdetailscollection.length > 0) {
-            this.tableData = response.activitiesdetailscollection[0];
+            this.tableData = response.activitiesdetailscollection;
           } else {
             this.error = 'No Data Found';
           }
