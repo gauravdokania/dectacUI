@@ -5,10 +5,10 @@
     </div></div>
 
     <div class="row">
-      <div class="col-3">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-3">
         <label>Select Date Range: </label>
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <!--<div id="datepickerFrom" class="input-group date" data-date-format="mm-dd-yyyy">
               <input class="form-control" type="text" readonly />
               <span class="input-group-addon">
@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-8">
             <mat-form-field>
               <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerTo" [formControl]="dateControl" placeholder="Choose End Date" (dateChange)="endDateChanged($event)">
               <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
@@ -32,12 +32,12 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-4">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-4">
             <button class="btn btn--secondary btn--general-cta"  (click)="onDateClick()"> <span>GO</span></button>
           </div>
         </div>
       </div>
-      <div class="col-9">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-9">
         <p-table #myTab [columns]="cols" [value]="tableData" [scrollable]="true" scrollHeight="400px" [rowHover]="true" [rows]="10"
           [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" sortMode="multiple" class="stat-table">

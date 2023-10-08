@@ -5,7 +5,7 @@
   </div></div>
 
   <div class="row">
-    <div class="col-3">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3">
       <label>Select Date Range: </label>
       <div class="row">
         <div class="col-12">
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="col-9">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9">
       <p-table #myTab [columns]="cols" [value]="tableData" [scrollable]="true" scrollHeight="400px" [rowHover]="true" [rows]="10"
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" class="stat-table" selectionMode="single"

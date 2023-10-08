@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AccountService } from './_services';
 import "bootstrap" ;
 import { Subscription } from 'rxjs/internal/Subscription';
+import * as jQuery from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -32,12 +33,10 @@ logout() {
 }
 
 myFunction(): void {
-  let x:any = document.getElementById("myLinks");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
+  let x:any = document.getElementById('myLinks');
+  // jQuery('.right_content').removeClass('col-10').addClass('col-12');
+  // jQuery('.left_content ').removeClass('col-2');
+  x.classList.toggle('offset-menu--active');
 }
 
 }

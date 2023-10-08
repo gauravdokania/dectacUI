@@ -953,6 +953,9 @@ li>ul {
     text-decoration: none
 }
 
+.sidebarmenu  {
+    display: none;
+  }
 .offset-menu {
     background-color: #1c1c1d;
     background-color: var(--black);
@@ -1041,7 +1044,7 @@ li>ul {
     margin-bottom: .5rem
 }
 
-.offset-menu__nav li a {
+.offset-menu__nav li a, .offset-menu__nav li span {
     background-color: #121b45;
     background-color: var(--secondary-color);
     color: #fff;
@@ -1059,7 +1062,7 @@ li>ul {
 }
 
 .offset-menu__nav li a:focus,
-.offset-menu__nav li a:hover {
+.offset-menu__nav li a:hover, .offset-menu__nav li span:hover {
     color: #fff;
     color: var(--white)
 }
@@ -1526,7 +1529,7 @@ li>ul {
     margin-bottom: .5rem
 }
 
-.offset-menu__nav li a {
+.offset-menu__nav li a, .offset-menu__nav li span {
     background-color: #121b45;
     background-color: var(--secondary-color);
     color: #fff;
@@ -1544,7 +1547,7 @@ li>ul {
 }
 
 .offset-menu__nav li a:focus,
-.offset-menu__nav li a:hover {
+.offset-menu__nav li a:hover, .offset-menu__nav li span:hover {
     color: #fff;
     color: var(--white)
 }
@@ -2268,6 +2271,9 @@ button {
         max-width: 91.66667%;
         padding: 0
     }
+    .sidebarmenu {
+        display: none;
+    }
 }
 
 @media screen and (min-width:48em) {
@@ -2345,6 +2351,9 @@ button {
         width: 170px;
         width: 17rem
     }
+    .sidebarmenu {
+        display: none;
+    }
 }
 
 @media screen and (min-width:62em) {
@@ -2404,6 +2413,9 @@ button {
 
     .main-header__col--book-now {
         display: none
+    }
+ .sidebarmenu {
+        display: block;
     }
 
     .main-header__col--navigation {
@@ -2504,6 +2516,9 @@ button {
         --footer-info-col-width: 300px;
         --footer-info-col-width: 30rem
     }
+  .sidebarmenu {
+        display: block;
+    }
 }
 
 @media screen and (min-width:96em) {
@@ -2521,12 +2536,18 @@ button {
         max-width: 1280px;
         max-width: 128rem
     }
+ .sidebarmenu {
+        display: block;
+    }
 }
 
 @media screen and (min-width:113em) {
     .cw {
         max-width: 1440px;
         max-width: 144rem
+}
+    .sidebarmenu {
+        display: block;
     }
 }
 

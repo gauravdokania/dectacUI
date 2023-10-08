@@ -27,5 +27,9 @@ export class RightNavbarComponent {
   logout() {
     this.accountService.logout();
   }
+  myFunction(): void {
+    let x:any = document.getElementById('myLinks');
+    x.classList.toggle('offset-menu--active');
+  }
   
 }
