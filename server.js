@@ -7,11 +7,8 @@ app.use(express.static('dist/gdms'));
 app.get('/', function (req, res,next) {
     res.redirect('/');
 });
-app.get("/login", (req, res) => { 
-     res.redirect('/login'); 
-}); 
-  
+ 
 app.get("/:universalURL", (req, res) => { 
-     res.redirect('/**'); 
+     res.redirect('/'); 
 }); 
 app.listen(8080)
