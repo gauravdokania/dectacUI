@@ -26,10 +26,10 @@ export class ModalComponent implements OnInit {
           }
         } else {
           if (data.memberdetailscollection.length > 0) {
-            this.membershipType = data.memberdetailscollection[0][0].membershipType;
+            this.membershipType = data.memberdetailscollection[0].membershipType;
           }
           if (data.creditdetailscollection.length > 0) {
-            this.tableData = data.creditdetailscollection[0];
+            this.tableData = data.creditdetailscollection;
           } else {
             this.error = 'No data Found';
           }
