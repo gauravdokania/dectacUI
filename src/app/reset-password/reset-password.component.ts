@@ -9,6 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
+  public showPasswordOld: boolean = false;
+  public showPasswordNew: boolean = false;
+  public showPasswordConfirm: boolean = false;
   form!: FormGroup;
   loading = false;
   submitted = false;
@@ -58,6 +61,7 @@ export class ResetPasswordComponent {
             this.success = response.message;
             this.loading = false;
             setTimeout(() => {
+              this.accountService.logout();
               this.success = '';
               this.error = '';
             }, 3000);
@@ -72,4 +76,15 @@ export class ResetPasswordComponent {
   }
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
+  public togglePasswordVisibility(data: string): void {
+    if (data === 'oldPassword') {
+      this.showPasswordOld = !this.showPasswordOld;
+    }
+    if (data === 'newPassword') {
+      this.showPasswordNew = !this.showPasswordNew;
+    }
+    if (data === 'confirmPassword') {
+      this.showPasswordConfirm = !this.showPasswordConfirm;
+    }
+  }
 }

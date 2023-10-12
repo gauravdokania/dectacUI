@@ -14,7 +14,10 @@
               </div>
               <div class="mb-3">
                   <label class="form-label">Password</label>
-                  <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                  <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                  <mat-icon matSuffix (click)="togglePasswordVisibility()" style="position: absolute; margin-top: -25px; margin-right: 20px; right: 0;">
+                    {{showPassword?'visibility_off':'visibility'}}
+                </mat-icon>
                   <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                       <div *ngIf="f.password.errors.required">Password is required</div>
                   </div>

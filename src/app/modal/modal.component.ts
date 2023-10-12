@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+// import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { DashboardData } from '@app/_models';
 import { DashboardService } from '@app/_services';
 @Component({
@@ -11,7 +11,9 @@ export class ModalComponent implements OnInit {
   membershipType: any;
   cols: any[] = [];
   error?: string;
-  constructor(public modalRef: MdbModalRef<ModalComponent>, private dashboardService: DashboardService) { }
+  constructor(
+    // public modalRef: MdbModalRef<ModalComponent>,
+    private dashboardService: DashboardService) { }
   ngOnInit(): void {
     // API call for json data
     this.dashboardService.getColumnDataForCredit().subscribe((data) => {

@@ -6,10 +6,11 @@
         <p class="menuitem_red" routerLink="/video">VIDEOS</p>
     </div>
     <div class="col-12">
-        <p class="menuitem_red" (click)="openModal()">CREDITS</p>
+        <p class="menuitem_red" routerLink="/getcredits">CREDITS</p>
+        <!--<p class="menuitem_red" (click)="openModal()">CREDITS</p>-->
     </div>
     <div class="col-12">
-        <p class="menuitem_red" (click)="resetPassword()">PASSWORD MANAGEMENT</p>
+        <p class="menuitem_red"  routerLink="/resetpassword">PASSWORD MANAGEMENT</p>
     </div>
     <div class="col-12">
         <p class="menuitem_red" routerLink="/getprofile">PROFILE MANAGEMENT</p>
@@ -44,8 +45,8 @@
         <ul id="menu-mobile-menu" class="offset-menu__nav" data-role="menubar">
             <li id="menu-item-796" class="menu-item menu-item-type-post_type menu-item-object-custom menu-item-796"><span  routerLink="/">DASHBOARD</span></li>
             <li id="menu-item-794" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-794"><span routerLink="/video">VIDEOS</span></li>
-            <li id="menu-item-791" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-791"><span (click)="openModal()">CREDITS</span></li>
-            <li id="menu-item-787" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-787"><span (click)="resetPassword()">PASSWORD MANAGEMENT</span></li>
+            <li id="menu-item-791" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-791"><span routerLink="/getcredits">CREDITS</span></li>
+            <li id="menu-item-787" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-787"><span routerLink="/resetpassword">PASSWORD MANAGEMENT</span></li>
             <li id="menu-item-792" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-792"><span routerLink="/getprofile">PROFILE MANAGEMENT</span></li>
             <li id="menu-item-790" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-790"><span (click)="logout()">LOGOUT</span></li>
             <!--<li id="menu-item-788" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-788"><a

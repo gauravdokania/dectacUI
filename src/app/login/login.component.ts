@@ -10,6 +10,7 @@ import { AccountService } from '../_services';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+    public showPassword: boolean = false;
     form!: FormGroup;
     loading = false;
     submitted = false;
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
             setTimeout(() => {
                 this.success = '';
                 this.error = '';
-              }, 3000); 
+            }, 3000);
         }
     }
 
@@ -66,7 +67,7 @@ export class LoginComponent implements OnInit {
                 } else {
                     // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
                     // this.router.navigateByUrl(returnUrl);
-                    this.router.navigate(['/'], {queryParams: { loginSuccess: true }});
+                    this.router.navigate(['/'], { queryParams: { loginSuccess: true } });
                 }
             },
             error: error => {
@@ -75,6 +76,11 @@ export class LoginComponent implements OnInit {
             }
         });
     }
+
+    public togglePasswordVisibility(): void {
+        this.showPassword = !this.showPassword;
+    }
+
     logout() {
         this.accountService.logout();
     }

@@ -11,6 +11,7 @@ import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { VideoDashboardComponent } from './video-dashboard/video-dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'first-user', component:  FirstUserComponent},
   { path: 'forgotPassword', component:  ForgotPasswordComponent},
   { path: '', component:  DashboardComponent, canActivate: [AuthGuard]},
-  { path: 'resetpassword', component: ResetPasswordComponent, canActivate: [AuthGuard] },  
+  { path: 'resetpassword', component: ResetPasswordComponent, canActivate: [AuthGuard] },
+  { path: 'getcredits', component: ModalComponent, canActivate: [AuthGuard] },  
   { path: 'video', component: VideoDashboardComponent, canActivate: [AuthGuard] },
   { path: 'video/:id', component: VideoPopupComponent, canActivate: [AuthGuard] },
   { path: 'getprofile', component: ProfileComponent, canActivate: [AuthGuard] },
