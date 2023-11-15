@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser().subscribe({
       next: (data: any) => {
-        this.userDetails = data.profiledetaildvocollection[0];
+        this.userDetails = data.profiledetaildvocollection;
         if (this.userDetails.profileimage !== '') {
           this.profileImage = `${this.userDetails.profileimage}`;
         } else {
@@ -45,6 +45,7 @@ export class ProfileComponent implements OnInit {
         }
       },
       error: error => {
+        console.log(error);
       }
     });
   }

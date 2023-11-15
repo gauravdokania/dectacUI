@@ -87,7 +87,9 @@ export class AccountService {
 
       getUser() {
         const email = this.userValue?.email;
-        return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
+        const dtacid = this.userValue?.serial_number;
+        // return this.http.get<any>(`${environment.apiUrl}/getProfileDetails/${email}`);
+        return this.http.post(`${environment.apiUrl}/getProfileDetails`, {email, dtacid });
       }
     
       updateUser(updatedUser: any) {
