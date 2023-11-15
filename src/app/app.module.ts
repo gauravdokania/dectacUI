@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 // import { JwtInterceptor, ErrorInterceptor } from '../app/_helpers';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -34,6 +35,8 @@ import { VideoPopupComponent } from './video-popup/video-popup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { VideoDashboardComponent } from './video-dashboard/video-dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { DateFormatPipe } from './date-format.pipe';
 
 
 @NgModule({
@@ -44,6 +47,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppRoutingModule,
     ChartModule,
     TableModule,
+    BreadcrumbModule,
     FormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
@@ -66,7 +70,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     VideoPopupComponent,
     ProfileComponent,
     VideoDashboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    BreadcrumbComponent,
+    DateFormatPipe
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
