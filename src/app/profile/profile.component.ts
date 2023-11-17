@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDetails } from '@app/_models/userDetails';
 import { AccountService } from '@app/_services';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,6 @@ export class ProfileComponent implements OnInit {
     'first_name': '',
     'last_name': '',
     'middle_name': '',
-    'profileimage': '',
     'racer_name': '',
     'serial_number': '',
     'state': '',
@@ -35,19 +35,43 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: AccountService) {}
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe({
-      next: (data: any) => {
-        this.userDetails = data.profiledetaildvocollection;
-        if (this.userDetails.profileimage !== '') {
-          this.profileImage = `${this.userDetails.profileimage}`;
-        } else {
-          this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
-        }
-      },
-      error: error => {
-        console.log(error);
+    this.userService.getUser().pipe(
+      switchMap((data: any) => {
+        this.userDetails = data.profiledetaildvocollection[0];
+        return this.userService.getImageData();
+      })
+    ).subscribe((response: Blob) => {
+      if(!!response){
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.profileImage = reader.result as string;
+        };
+        reader.readAsDataURL(response);
+      } else {
+        this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
       }
+      
     });
+
+
+    // this.userService.getUser().subscribe({
+    //   next: (data: any) => {
+    //     this.userDetails = data.profiledetaildvocollection[0];
+    //     if ((!!this.userDetails.profileimage && this.userDetails.profileimage !== null)) {
+    //       const reader = new FileReader();
+    //       reader.onload = () => {
+    //         this.profileImage = reader.result as string;
+    //       };
+    //       reader.readAsDataURL(this.userDetails.profileimage);
+    //       // this.profileImage = `${this.userDetails.profileimage}`;
+    //     } else {
+    //       this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
+    //     }
+    //   },
+    //   error: error => {
+    //     console.log(error);
+    //   }
+    // });
   }
 
   updateProfile() {
