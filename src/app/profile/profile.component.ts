@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class ProfileComponent implements OnInit {
   user: any;
-  userDetails:UserDetails = {
+  userDetails: UserDetails = {
     'address1': '',
     'address2': '',
     'city': '',
@@ -29,10 +29,10 @@ export class ProfileComponent implements OnInit {
     'tel2': '',
     'zipcode': 0
   };
-  disName:boolean= true;
-  profileImage:any;
+  disName: boolean = true;
+  profileImage: any;
 
-  constructor(private userService: AccountService) {}
+  constructor(private userService: AccountService) { }
 
   ngOnInit(): void {
     this.userService.getUser().pipe(
@@ -40,17 +40,16 @@ export class ProfileComponent implements OnInit {
         this.userDetails = data.profiledetaildvocollection[0];
         return this.userService.getImageData();
       })
-    ).subscribe((response: Blob) => {
-      if(!!response){
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.profileImage = reader.result as string;
-        };
-        reader.readAsDataURL(response);
+    ).subscribe((response: any) => {
+      if (!!response) {
+        // Get the base64-encoded image string from the JSON response
+        const imageBase64 = response.image_base64;
+        // Decode the base64 image string
+        this.profileImage = 'data:image/jpeg;base64,' + imageBase64.split(',')[1];
       } else {
         this.profileImage = 'https://decisiontactical.com/wp-content/themes/dtac-theme/assets/img/vector/optimized/decision-tactical-logo-blue-black.svg';
       }
-      
+
     });
 
 

@@ -97,6 +97,6 @@ export class AccountService {
       }
       getImageData() {
         const email = this.userValue?.email;
-        return this.http.get(`${environment.apiUrl}/getImageData/${email}`, { responseType: 'blob' });
+        return this.http.get(`${environment.apiUrl}/getImageData/${email}`);
       }
 }
