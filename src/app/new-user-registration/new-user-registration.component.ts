@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { UserDetails } from '@app/_models/userDetails';
 import * as moment from 'moment';
 import { AccountService } from '../_services';
+import { TermandconditionsComponent } from '../termandconditions/termandconditions.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-new-user-registration',
@@ -21,9 +22,11 @@ export class NewUserRegistrationComponent implements OnInit {
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
   dob: any;
-  isYesRadioSelected:boolean = false;
+  isYesRadioSelected: boolean = false;
+  modalRefTermandconditions: MdbModalRef<TermandconditionsComponent> | null = null;
 
   constructor(
+    private modalService: MdbModalService,
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private accountService: AccountService
@@ -39,7 +42,6 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.accountService.getUserRegistrationPage().subscribe(data => {
       if (data && data.pagelebelcollection) {
         this.formFields = data.pagelebelcollection[0];
@@ -70,15 +72,15 @@ export class NewUserRegistrationComponent implements OnInit {
           const defaultCheckedButton = field.buttonList.find(button => button.checked);
           // Set the default value for radio button
           formGroupConfig[field.controlName] = [defaultCheckedButton ? defaultCheckedButton.value : '', validatorsArray];
-        // } else if(field.inputType==='text'){
+          // } else if(field.inputType==='text'){
 
-        // } else if(field.inputType==='number'){
+          // } else if(field.inputType==='number'){
 
-        // } else if(field.inputType==='date'){
+          // } else if(field.inputType==='date'){
 
-        // } else if(field.inputType==='dropdown'){
+          // } else if(field.inputType==='dropdown'){
 
-        // } else if(field.inputType==='rulesandregulation'){
+          // } else if(field.inputType==='rulesandregulation'){
 
         } else {
           // For other input types
@@ -124,55 +126,62 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   radioChecked(id: any, i: any) {
-   
+
     if (this.registrationForm.value.milatoryJobChoice === 'yes') {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'milatoryJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType:string }) => e.controlName === 'currentlyServingsInMilitary' || e.controlName === 'servingYearsInMilitary' || e.controlName === 'jobRankInMilitary' || e.inputType ==='textheader')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {             
-            field.hide = false;
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'currentlyServingsInMilitary' || e.controlName === 'servingYearsInMilitary' || e.controlName === 'jobRankInMilitary' || e.inputType === 'textheader')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = false;
       });
       this.isYesRadioSelected = true;
     } else {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'milatoryJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType:string }) => e.controlName === 'currentlyServingsInMilitary' || e.controlName === 'servingYearsInMilitary' || e.controlName === 'jobRankInMilitary' || e.inputType ==='textheader')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {             
-            field.hide = true;
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'currentlyServingsInMilitary' || e.controlName === 'servingYearsInMilitary' || e.controlName === 'jobRankInMilitary' || e.inputType === 'textheader')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = true;
       });
       this.isYesRadioSelected = false;
     }
     if (this.registrationForm.value.lawEnforcementJobChoice === 'yes') {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'lawEnforcementJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType:string }) => e.controlName === 'currentlyServingsLawEnforcement' || e.controlName === 'servingYearsInLawEnforcement' || e.controlName === 'jobRankInLawEnforcement' || e.inputType ==='textheader')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {             
-            field.hide = false;
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'currentlyServingsLawEnforcement' || e.controlName === 'servingYearsInLawEnforcement' || e.controlName === 'jobRankInLawEnforcement' || e.inputType === 'textheader')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = false;
       });
       this.isYesRadioSelected = true;
     } else {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'lawEnforcementJobDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType:string }) => e.controlName === 'currentlyServingsLawEnforcement' || e.controlName === 'servingYearsInLawEnforcement' || e.controlName === 'jobRankInLawEnforcement' || e.inputType ==='textheader')
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {             
-            field.hide = true;
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'currentlyServingsLawEnforcement' || e.controlName === 'servingYearsInLawEnforcement' || e.controlName === 'jobRankInLawEnforcement' || e.inputType === 'textheader')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = true;
       });
       this.isYesRadioSelected = false;
     }
   }
 
-  onOptionsSelected(value:string) {
+  onOptionsSelected(value: string) {
     if (this.registrationForm.value.eventGroupIds === 'eventCode') {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'howDidYouHearAboutUsDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType:string }) => e.controlName === 'eventCode' )
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {             
-            field.hide = false;
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'eventCode')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = false;
       });
     } else {
       let buttonitems = this.formFields?.find((item) => item.cardBodyType === 'howDidYouHearAboutUsDetails');
-      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType:string }) => e.controlName === 'eventCode' )
-      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {             
-            field.hide = true;
+      let buttonitem = buttonitems.cardBodyListCollection.filter((e: { controlName: string; inputType: string }) => e.controlName === 'eventCode')
+      buttonitem.forEach((field: { controlName: String; hide: Boolean }) => {
+        field.hide = true;
       });
     }
 
-}
+  }
+  rulesAndRegulationCheck(value: Event) {
+    if ((value.target as HTMLInputElement).checked) {
+      this.modalRefTermandconditions = this.modalService.open(TermandconditionsComponent, {
+        modalClass: 'modal-dialog-scrollable',
+      });
+    }
+  }
 
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];

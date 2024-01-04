@@ -50,7 +50,7 @@ export class AccountService {
           if (erroCollection.length > 0) {
             return user.errorinfodvocollection[0];
           } else {
-            const userDetailsCollection = user.successdvocollection[0];
+            const userDetailsCollection = user.successMessage;
             return userDetailsCollection;
           }
         }));
