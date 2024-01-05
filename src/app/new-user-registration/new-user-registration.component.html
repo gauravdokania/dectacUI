@@ -14,12 +14,11 @@
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
-                                    <img [src]="profileImage" alt="Avatar">
+                                    <img [src]="previewImage" alt="Selected Image" *ngIf="previewImage">
                                 </div>
                                 <label for="profilePicture">Profile Picture:<span
                                         class="requiredAsterisk">*</span></label>
-                                <input formControlName="profilePicture" type="file" id="profilePicture"
-                                    (change)="onFileChange($event)" />
+                                <input type="file" id="profilePicture" (change)="onFileChange($event)" />
                             </div>
                         </div>
                     </div>

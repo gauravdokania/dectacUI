@@ -14,11 +14,10 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 export class NewUserRegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
   formFields?: any[];
-  selectedFile!: File;
+  previewImage: string | ArrayBuffer | null = null;
   success?: string;
   error?: string;
   successHide?: boolean = true;
-  profileImage: any;
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
   dob: any;
@@ -184,7 +183,27 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    this.selectedFile = event.target.files[0];
+    const file = (event.target as HTMLInputElement).files?.[0];
+
+    if (file) {
+      // // Update the form control with the selected file
+      this.registrationForm.patchValue({
+        profilePicture: file
+      });
+
+      // Display a preview of the selected image
+      this.previewSelectedImage(file);
+    }
+  }
+
+  previewSelectedImage(file: File): void {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.previewImage = reader.result;
+    };
+
+    reader.readAsDataURL(file);
   }
 
 }
