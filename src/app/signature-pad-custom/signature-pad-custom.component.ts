@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import SignaturePad from 'signature_pad';
 
@@ -12,6 +12,7 @@ export class SignaturePadCustomComponent {
   signatureNeeded!: boolean;
   signaturePad!: SignaturePad;
   @ViewChild('canvas') canvasEl!: ElementRef;
+  @Output() formSignDataSubmitted: EventEmitter<any> = new EventEmitter();
   signatureImg!: string;
   constructor(public modalRefSignaturePadCustom: MdbModalRef<SignaturePadCustomComponent>) { }
 
@@ -33,6 +34,11 @@ export class SignaturePadCustomComponent {
     if (!this.signatureNeeded) {
       this.signatureNeeded = false;
     }
+    // this.formSignDataSubmitted.emit(this.signatureImg);
+    this.formSignDataSubmitted.next(this.signatureImg)
+
+    // Close the modal
+    this.modalRefSignaturePadCustom.close();
   }
   clearPad() {
     this.signaturePad.clear();

@@ -113,4 +113,8 @@ export class AccountService {
     // Replace the following URL with your backend registration endpoint
     return this.http.get(`${environment.apiUrl}/getUserRegistrationPage`);
   }
+
+  createAccount(formData: any) {
+    return this.http.post(`${environment.apiUrl}/createAccount`, { formData });
+  }
 }

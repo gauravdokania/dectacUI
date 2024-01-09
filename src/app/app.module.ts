@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 
 // user created
 import { AppComponent } from './app.component';
@@ -38,6 +39,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { DateFormatPipe } from './date-format.pipe';
 import { NewUserRegistrationComponent } from './new-user-registration/new-user-registration.component';
+import { TermandconditionsComponent } from './termandconditions/termandconditions.component';
+import { SignaturePadCustomComponent } from './signature-pad-custom/signature-pad-custom.component';
+
 
 
 @NgModule({
@@ -55,7 +59,8 @@ import { NewUserRegistrationComponent } from './new-user-registration/new-user-r
     MatInputModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule
+    MatMomentDateModule, MatButtonModule, MatDividerModule, MatIconModule, MatTabsModule, 
+    AngularSignaturePadModule
   ],
   declarations: [
     AppComponent,
@@ -74,7 +79,9 @@ import { NewUserRegistrationComponent } from './new-user-registration/new-user-r
     NotFoundComponent,
     BreadcrumbComponent,
     DateFormatPipe,
-    NewUserRegistrationComponent
+    NewUserRegistrationComponent,
+    TermandconditionsComponent,
+    SignaturePadCustomComponent
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
