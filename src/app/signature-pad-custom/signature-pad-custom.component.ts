@@ -38,7 +38,7 @@ export class SignaturePadCustomComponent {
     this.formSignDataSubmitted.next(this.signatureImg)
 
     // Close the modal
-    this.modalRefSignaturePadCustom.close();
+    this.modalRefSignaturePadCustom.close('Data Received');
   }
   clearPad() {
     this.signaturePad.clear();

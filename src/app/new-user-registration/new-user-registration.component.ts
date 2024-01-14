@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { AccountService } from '../_services';
 import { TermandconditionsComponent } from '../termandconditions/termandconditions.component';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 @Component({
   selector: 'app-new-user-registration',
@@ -39,7 +38,6 @@ export class NewUserRegistrationComponent implements OnInit {
   constructor(
     private modalService: MdbModalService,
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private accountService: AccountService
   ) {
     this.registrationForm = this.formBuilder.group({
@@ -60,6 +58,9 @@ export class NewUserRegistrationComponent implements OnInit {
       jobRankInMilitary: [''],
       lastName: [''],
       lawEnforcementJobChoice: 'none',
+      legalGardianFirstName:[''],
+      legalGardianLastName:[''],
+      legalGardianBirthDate:[''],
       milatoryJobChoice: 'none',
       mobilePhoneNumber: [''],
       othersHearAboutUs: [''],
@@ -129,11 +130,13 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.registrationForm.valid) {
+    if (this.registrationForm.valid && this.registrationForm.value.rulesAndRegulation !== false) {
       this.registrationFormData = { ...this.registrationFormData, ...this.registrationForm.value };
       this.accountService.createAccount(this.registrationFormData).subscribe({
         next: (data: any) => {
           // this.getUser();
+          const element = document.getElementById('createNewAccountFormHeader');
+          element?.scrollIntoView();
           this.success = data.accountdetaildvocollection[0].success;
           setTimeout(() => {
             this.success = '';
@@ -164,20 +167,42 @@ export class NewUserRegistrationComponent implements OnInit {
   }
 
   endDateChanged(event: any) {
-    this.dob = moment(event.value).local();
+    if (event.targetElement.id === 'birthDate') {
+      this.dob = moment(event.value).local();
+      const years = moment().diff(this.dob, 'years', false);
+      const controlName = ['legalGardianFirstName', 'legalGardianLastName', 'legalGardianBirthDate'];
+      const buttonitems = this.formFields?.find((item: { cardBodyType: String; }) => item.cardBodyType === 'personalDetails');
+      if (years < 18) {
+        buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {
+          controlName.forEach(item => {
+            if (value.controlName === item) {
+              value.hide = false;
+            }
+          })
+        });
+      } else {
+        buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {
+          controlName.forEach(item => {
+            if (value.controlName === item) {
+              value.hide = true;
+            }
+          })
+        });
+      }
+    }
   }
 
   populateCardBody(j: string, c: Array<String>) {
     if (c.length > 0) {
       const varFormFields = Object.assign([], this.formFields);;
       let buttonitems: any = varFormFields?.find((item: { cardBodyType: String; }) => item.cardBodyType === j);
-      // Making the default set data
+    
       buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {       
         if (!(value.controlName === 'milatoryJobChoice' || value.controlName === 'lawEnforcementJobChoice')) {
           value.hide = true;
         }       
       });
-      // Making the default set data
+
       if ((buttonitems.cardBodyListCollection.length - 1) !== c.length) {
         buttonitems.cardBodyListCollection.forEach((value: { controlName: String; hide: boolean; }) => {
           c.forEach(item => {
@@ -247,15 +272,25 @@ export class NewUserRegistrationComponent implements OnInit {
 
   }
   rulesAndRegulationCheck(value: any) {
-    if ((value.target as HTMLInputElement).checked) {
+    if ((value.target as HTMLInputElement).id === 'rulesAndRegulation' && (value.target as HTMLInputElement).checked) {
       const modalRefTermandconditions = this.modalService.open(TermandconditionsComponent, this.config);
-
       modalRefTermandconditions.component.formTermsAndConditionSubmitted.subscribe((signImage) => {
-        if (!!signImage) {
+        if (!!signImage && signImage!== 'closed') {
           const dataToAppend = { ...this.registrationForm.value, ...{ 'signImage': signImage } };
           this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
+        } else {
+          if((value.target as HTMLInputElement).id === 'rulesAndRegulation'){
+            value.target.checked = false;
+          }
+        } 
+      });
+      modalRefTermandconditions.onClose.subscribe((message: any) => {
+        if(!message && message !== 'success') {
+          if((value.target as HTMLInputElement).id === 'rulesAndRegulation'){
+            value.target.checked = false;
+          }
         }
-      })
+      });
     }
   }
 

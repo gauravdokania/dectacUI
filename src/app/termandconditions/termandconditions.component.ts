@@ -24,7 +24,7 @@ export class TermandconditionsComponent implements OnInit{
   };
 
   constructor(public modalRefTermandconditions: MdbModalRef<TermandconditionsComponent>, 
-    private modalServiceSignaturePad: MdbModalService,) {}
+    private modalServiceSignaturePad: MdbModalService) {}
   ngOnInit(): void {    
     
   }
@@ -32,7 +32,12 @@ export class TermandconditionsComponent implements OnInit{
     const modalRefSignaturePad = this.modalServiceSignaturePad.open(SignaturePadCustomComponent , this.config);
     modalRefSignaturePad.component.formSignDataSubmitted.subscribe((emmitedValue) => {
       this.formTermsAndConditionSubmitted.next(emmitedValue);
-      this.modalRefTermandconditions.close();
+      this.modalRefTermandconditions.close('success');
+  });
+  modalRefSignaturePad.onClose.subscribe((message: any) => {
+    if(!message) {
+      this.formTermsAndConditionSubmitted.next('closed');
+    }
   });
   }
 }
