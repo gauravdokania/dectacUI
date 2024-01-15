@@ -4,13 +4,16 @@ import * as moment from 'moment';
 import { AccountService } from '../_services';
 import { TermandconditionsComponent } from '../termandconditions/termandconditions.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ImageWebcamComponent } from '@app/image-webcam/image-webcam.component';
+import { ImageUtilService } from '@app/_utils/image-util.service';
+
 
 @Component({
   selector: 'app-new-user-registration',
   templateUrl: './new-user-registration.component.html',
   styleUrls: ['./new-user-registration.component.css']
 })
-export class NewUserRegistrationComponent implements OnInit {
+export class NewUserRegistrationComponent implements OnInit {   
   registrationForm!: FormGroup;
   registrationFormData!: {};
   formFields?: any[];
@@ -38,7 +41,8 @@ export class NewUserRegistrationComponent implements OnInit {
   constructor(
     private modalService: MdbModalService,
     private formBuilder: FormBuilder,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private imageUtilService: ImageUtilService
   ) {
     this.registrationForm = this.formBuilder.group({
       address1: [''],
@@ -73,6 +77,7 @@ export class NewUserRegistrationComponent implements OnInit {
       signPicture: [''],
       state: [''],
       validDoumentId: [''],
+      validDoumentImage:[''],
       zipcode: ['']
     });
   }
@@ -298,18 +303,36 @@ export class NewUserRegistrationComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       // Display a preview of the selected image
-      this.previewSelectedImage(file);
+      this.previewSelectedImage(file, (event.target as HTMLInputElement).id);
     }
   }
 
-  previewSelectedImage(file: File): void {
+  previewSelectedImage(file: File, id:string): void {
     const reader = new FileReader();
+    let dataToAppend: {};
     reader.onload = () => {
-      this.previewImage = reader.result;
-      const dataToAppend = { ...this.registrationForm.value, ...{ 'profilePicture': this.previewImage } };
+      if(id !== 'validDoumentImage') {
+        this.previewImage = reader.result;
+        dataToAppend = { ...this.registrationForm.value, ...{ 'profilePicture': this.previewImage } };
+      } else {
+        dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentImage': reader.result } };
+      } 
+      
       this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
     };
     reader.readAsDataURL(file);
   }
-
+  triggerSnapshot(value: any) {
+    const modalRefImageWevcam = this.modalService.open(ImageWebcamComponent, this.config);
+    modalRefImageWevcam.component.imageWebcamSubmitted.subscribe((webcamImage) => {
+      if (!!webcamImage && value.target.id !== 'fileImageWebcam') {      
+        const filename = 'webcam_image.png'; // You can set any filename
+        const file = this.imageUtilService.dataURLtoFile(webcamImage.imageAsDataUrl, filename);
+        this.previewSelectedImage(file, value.target.id);
+      }  else if(!!webcamImage && value.target.id === 'fileImageWebcam'){
+      const dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentImage': webcamImage} };
+      this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
+      }
+    });
+  }
 }

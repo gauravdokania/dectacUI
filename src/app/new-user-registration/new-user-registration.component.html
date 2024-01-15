@@ -19,7 +19,10 @@
                                 <label for="profilePicture">Profile Picture:<span
                                         class="requiredAsterisk">*</span></label>
                                 <input type="file" id="profilePicture" (change)="onFileChange($event)" />
-                            </div>
+                                <p>OR</p>
+                                <p class="actionBtn" id="profileImageWebcam" (click)="triggerSnapshot($event)">Take A Snapshot</p>
+                                
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -73,6 +76,8 @@
                                 *ngIf="field.inputType==='file' && !field.hide">
                                 <input type="file" [id]="field.controlName" [formControlName]="field.controlName"
                                     class="form-control" placeholder="{{field.placeHolder}}"  (change)="onFileChange($event)" />
+                                    <p>OR</p>
+                                    <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take A Snapshot</p>
                                 <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
                                     class="error-message">
                                     <div *ngFor="let error of f[field.controlName].errors | keyvalue">

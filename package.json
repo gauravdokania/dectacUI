@@ -30,6 +30,7 @@
     "jquery": "^3.7.0",
     "mdb-angular-ui-kit": "^5.0.0",
     "moment": "^2.29.4",
+    "ngx-webcam": "^0.4.1",
     "primeng": "^16.2.0",
     "rxjs": "~7.8.0",
     "signature_pad": "^4.1.7",
