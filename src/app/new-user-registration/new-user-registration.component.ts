@@ -23,6 +23,7 @@ export class NewUserRegistrationComponent implements OnInit {
   successHide?: boolean = true;
   minDate: any = moment('1950-1-1', 'YYYY-MM-DD').local();
   maxDate: any = moment().local();
+  maxDatelegal:any = moment().subtract(18, "years"); ;
   dob: any;
   isYesRadioSelected: boolean = false;
   config = {
@@ -305,6 +306,10 @@ export class NewUserRegistrationComponent implements OnInit {
       // Display a preview of the selected image
       this.previewSelectedImage(file, (event.target as HTMLInputElement).id);
     }
+  }
+  addValidDoumentId(value:any){
+    const dataToAppend = { ...this.registrationForm.value, ...{ 'validDoumentId': (value.target as HTMLInputElement).value } };
+    this.registrationFormData = { ...this.registrationFormData, ...dataToAppend };
   }
 
   previewSelectedImage(file: File, id:string): void {

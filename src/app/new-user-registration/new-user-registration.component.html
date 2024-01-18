@@ -20,9 +20,10 @@
                                         class="requiredAsterisk">*</span></label>
                                 <input type="file" id="profilePicture" (change)="onFileChange($event)" />
                                 <p>OR</p>
-                                <p class="actionBtn" id="profileImageWebcam" (click)="triggerSnapshot($event)">Take A Snapshot</p>
-                                
-                                </div>
+                                <p class="actionBtn" id="profileImageWebcam" (click)="triggerSnapshot($event)">Take A
+                                    Snapshot</p>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,8 +39,8 @@
                         <div *ngFor="let field of card.cardBodyListCollection" class="row form-group mb-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
                                 *ngIf="field.inputType !=='rulesandregulation' && !field.hide && field.inputType !=='textheader'">
-                                <label [for]="field.controlName">{{ field.label }}:<span
-                                        class="requiredAsterisk" *ngIf="field.validators.length>0">*</span></label>
+                                <label [for]="field.controlName">{{ field.label }}:<span class="requiredAsterisk"
+                                        *ngIf="field.validators.length>0">*</span></label>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
                                 *ngIf="field.inputType ==='radio' && !field.hide">
@@ -72,12 +73,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
+                            <!--<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
                                 *ngIf="field.inputType==='file' && !field.hide">
                                 <input type="file" [id]="field.controlName" [formControlName]="field.controlName"
-                                    class="form-control" placeholder="{{field.placeHolder}}"  (change)="onFileChange($event)" />
-                                    <p>OR</p>
-                                    <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take A Snapshot</p>
+                                    class="form-control" placeholder="{{field.placeHolder}}"
+                                    (change)="onFileChange($event)" />
+                                <p>OR</p>
+                                <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take A
+                                    Snapshot</p>
                                 <div *ngIf="f[field.controlName].touched && f[field.controlName].invalid"
                                     class="error-message">
                                     <div *ngFor="let error of f[field.controlName].errors | keyvalue">
@@ -85,7 +88,7 @@
                                         field.label + ' format' }}
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
                                 *ngIf="field.inputType==='number' && !field.hide">
                                 <input [id]="field.controlName" [formControlName]="field.controlName" type="number"
@@ -94,7 +97,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12"
                                 *ngIf="field.inputType==='date' && !field.hide">
                                 <mat-form-field>
-                                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="birthDate"
+                                    <input matInput [min]="minDate" [max]="field.controlName!=='legalGardianBirthDate'?maxDate:maxDatelegal" [matDatepicker]="birthDate"
                                         placeholder="{{field.placeHolder}}" (dateChange)="endDateChanged($event)"
                                         class="form-control" [id]="field.controlName"
                                         [formControlName]="field.controlName">
@@ -130,13 +133,13 @@
                                 *ngIf="field.inputType==='rulesandregulation' && !field.hide">
                                 <div class="row">
                                     <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
-                                        
+
                                         <input [id]="field.controlName" [formControlName]="field.controlName"
                                             type="checkbox" class="form-control form-check-input"
                                             value="{{field.value}}" (click)="rulesAndRegulationCheck($event)" />
                                     </div>
                                     <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10"><span
-                                        class="requiredAsterisk" *ngIf="field.validators.length>0">*</span>
+                                            class="requiredAsterisk" *ngIf="field.validators.length>0">*</span>
                                         <label class="form-check-label" [for]="field.controlName"
                                             [innerHtml]="field.label">
                                         </label>
@@ -147,7 +150,44 @@
 
                     </div>
                 </div>
+                <div class="mb-3 card">
+                    <div class="card-body">
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <label class="form-check-label" for="promocode">
+                                            License/Identification Number:
+                                        </label>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <input name="validDoumentId" type="text" class="form-control"
+                                            id="validDoumentId" (blur)="addValidDoumentId($event)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-3">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <label class="form-check-label" for="promocode">
+                                            Upload License/Identification Document:
+                                        </label>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <input type="file" id="validDoumentImage" class="form-control"
+                                            (change)="onFileChange($event)" />
+                                        <p>OR</p>
+                                        <p class="actionBtn" id="fileImageWebcam" (click)="triggerSnapshot($event)">Take
+                                            A Snapshot</p>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-3 card">
                     <div class="card-body">
                         <div class="row form-group mb-3">
@@ -173,7 +213,9 @@
                         <div class="row form-group mb-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="text-right">
-                                    <button id="submit" name="submit" type="submit" [disabled]="registrationForm.invalid" class="btn btn--secondary btn--general-cta">Register</button>
+                                    <button id="submit" name="submit" type="submit"
+                                        [disabled]="registrationForm.invalid"
+                                        class="btn btn--secondary btn--general-cta">Register</button>
                                 </div>
                             </div>
                         </div>
